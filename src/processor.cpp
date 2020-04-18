@@ -40,5 +40,5 @@ float Processor::Utilization() {
   float total = idle+nonidle;
   float totald = total-prevtotal;
   float idled = idle-previdle;
-  return (totald-idled)/totald*100;
+  return (totald-idled)/totald;
 }

@@ -101,6 +101,7 @@ string Process::User() {
       }
     }
   }
+    return user;
 }
 
 // TODO: Return the age of this process (in seconds)
@@ -111,6 +112,7 @@ long int Process::UpTime() {
     while(stream >> uptime)
       return stol(uptime);
   }
+    return 0;
 }
 
 // TODO: Overload the "less than" comparison operator for Process objects
