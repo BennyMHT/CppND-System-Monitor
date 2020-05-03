@@ -7,6 +7,7 @@
 #include <algorithm>
  
 #include "process.h"
+#inlcude "linux_parser.h"
 
 using std::string;
 using std::to_string;
@@ -40,7 +41,7 @@ float Process::CpuUtilization() {
     }
   }
   float total_time = utime+stime+cutime+cstime;
-  float seconds = UpTime()-starttime/sysconf(_SC_CLK_TCK);
+  float seconds = LinuxParser::UpTime()-starttime/sysconf(_SC_CLK_TCK);
   cpu_ = total_time/sysconf(_SC_CLK_TCK)/seconds;
   return cpu_;
 }
@@ -109,8 +110,12 @@ long int Process::UpTime() {
   string uptime;
   std::ifstream stream("/proc/"+to_string(pid_)+"/stat");
   if(stream.is_open()) {
-    while(stream >> uptime)
+    int i = 1;
+    while(stream >> uptime) {
+     if(i == 22)
       return stol(uptime);
+     i++;
+    }
   }
     return 0;
 }
